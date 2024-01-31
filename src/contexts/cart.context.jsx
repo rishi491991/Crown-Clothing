@@ -23,7 +23,8 @@ const addCartItem = (cartItems, productToAdd) => {
   
     if (existingCartItem) {
       if(productToRemove.quantity === 1){
-        return cartItems.filter(item => item.id !== productToRemove.id)
+        if(window.confirm("Are you sure want to remove the item from cart?")) return cartItems.filter(item => item.id !== productToRemove.id)
+        else return cartItems
       }
 
       return cartItems.map((cartItem) =>
@@ -36,7 +37,9 @@ const addCartItem = (cartItems, productToAdd) => {
   };
 
   const clearCartItem = (cartItems,productToClear) => {
-    return cartItems.filter((item) => item.id !== productToClear.id)
+    if(window.confirm("Are you sure want to remove the item from cart?")) return cartItems.filter((item) => item.id !== productToClear.id)
+    else return cartItems
+    
   }
   
 export  const CartContext = createContext({
