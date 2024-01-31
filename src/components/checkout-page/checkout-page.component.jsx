@@ -4,7 +4,7 @@ import './checkout-page.styles.scss'
 import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
-  const { cartItems, addItemToCart, setIsCartOpen, removeItemFromCart, setCartItems, clearItemFromCart } = useContext(CartContext);
+  const { cartItems, addItemToCart, setIsCartOpen, removeItemFromCart, clearItemFromCart, totalAmount } = useContext(CartContext);
 
   useEffect(() => setIsCartOpen(false), []);
 
@@ -13,22 +13,7 @@ const CheckoutPage = () => {
   const navigate = useNavigate();
 
   if(cartItems.length === 0) navigate('/shop')
-
-  const cartTotalHandler = () => {
-    let cartTotal = null
-    cartItems.map((item) => 
-    {
-        return(
-            cartTotal = cartTotal + item.price*item.quantity
-        )
-    })
-
-    return cartTotal
-  }
-
-  const cartTotal = cartTotalHandler();
-
-
+  
   return (
     <div className='checkout-container'>
       <div className='checkout-header'>
@@ -84,7 +69,7 @@ const CheckoutPage = () => {
       </div>
       )
 })}
-      <div className='total'>TOTAL: ${cartTotal}</div>
+      <div className='total'>TOTAL: ${totalAmount}</div>
     </div>
   );
 };
