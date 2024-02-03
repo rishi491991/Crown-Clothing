@@ -4,9 +4,10 @@ import "./cart-dropdown.styles.scss";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../contexts/cart.context";
+import CartItem from '../cart-item/cart-item.component'
 
 const CartDropdown = () => {
-  const { cartItems, clearItemFromCart } = useContext(CartContext);
+  const { cartItems } = useContext(CartContext);
   const navigate = useNavigate();
 
   const goToCheckoutHandler = () => {
@@ -19,23 +20,8 @@ const CartDropdown = () => {
       {cartItems.length===0 && <span>Please Add Items to the Cart</span>}
       <div className="cart-items">
         {cartItems.map((item) => {
-          const { name, quantity, id, imageUrl, price } = item;
-          const clearItemHandler = () => {
-            clearItemFromCart(item);
-          };
           return (
-            <div className="cart-item-container" key={id}>
-              <img src={imageUrl} alt={name} />
-              <div className="item-details">
-                <span>{name}</span>
-                <span>
-                  {quantity} x ${price}
-                </span>
-              </div>
-              <div className="remove-button" onClick={clearItemHandler}>
-                &#10005;
-              </div>
-            </div>
+            <CartItem cartItem={item} key={item.id}/>
           );
         })}
         {cartItems.length > 0 && (
