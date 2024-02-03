@@ -40,12 +40,26 @@
       font-size: 18px;
   
       .name {
-        width: 90%;
+        width: 50%;
         margin-bottom: 15px;
       }
   
+      .like-icon{
+        justify-content: center;
+        cursor: pointer;
+        width:40%;
+      }
+
+      &:hover{
+        .main-like-icon{
+          background-color: red;
+        }
+      }
+
       .price {
         width: 10%;
       }
+
+      
     }
   }

@@ -1,11 +1,13 @@
-import { useState, useContext } from "react";
+import { useState, useContext, Fragment } from "react";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import { signInWithGooglePopup } from "../../utils/firebase/firebase.utils";
 import { signInAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 
+
 //CSS
 import './sign-in-form.styles.scss'
+import { useNavigate } from "react-router-dom";
 
 
 const defaultFormFields = {
@@ -33,12 +35,15 @@ const SignInForm = () => {
     });
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
       event.preventDefault();
       try {
         await signInAuthUserWithEmailAndPassword(email,password);
         // const userDocRef = await createUserDocumentFromAuth(user);
         resetFormFields();
+        navigate('/shop')
       } catch (error) {
         if(error.code === 'auth/invalid-credential'){
           alert('Wrong Credentials')
@@ -49,6 +54,7 @@ const SignInForm = () => {
   const logGoogleUserWithPopup = async () => {
     await signInWithGooglePopup();
 }
+
 
 
   return (

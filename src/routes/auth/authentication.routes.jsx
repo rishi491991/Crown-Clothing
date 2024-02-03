@@ -3,10 +3,15 @@
 
 // import { getRedirectResult } from "firebase/auth";
 // import { useEffect } from "react";
+import { useEffect, useContext } from 'react';
 import './authentication.styles.scss'
+import { CartContext } from '../../contexts/cart.context';
 
 import SignUpForm from "../../components/sign-up-form/sign-up-form.component";
 import SignInForm from "../../components/sign-in-form/sign-in-form.component";
+import { useNavigate } from 'react-router-dom';
+
+import { UserContext } from '../../contexts/user.context';
 const Authentication = () => {
     /* Using Goodle Redirect Method */
     // useEffect( ()=>{
@@ -29,7 +34,13 @@ const Authentication = () => {
         
 
     // },[])
+    const {currentUser} = useContext(UserContext);
+    const {setIsCartOpen} = useContext(CartContext);
 
+    useEffect(() => setIsCartOpen(false), []);
+
+    const navigate = useNavigate();
+    if(currentUser) navigate('/shop')
 
     return(
         

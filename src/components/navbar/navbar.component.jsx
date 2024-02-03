@@ -14,14 +14,19 @@ import { UserContext } from "../../contexts/user.context";
 import CartIcon from "../cart-icon/cart-icon.component";
 import CartDropdown from "../cart-dropdown/cart-dropdown-component";
 import { CartContext } from "../../contexts/cart.context";
+import { OrdersContext } from "../../contexts/orders.context";
+import { FavoritesContext } from "../../contexts/favorites.context";
 
 const NavBar = () => {
+  const {orders, setOrders} = useContext(OrdersContext)
+  const {favorites} = useContext(FavoritesContext)
 
   const {currentUser} = useContext(UserContext);
   const {isCartOpen} = useContext(CartContext);
   
   const handleSignOut = async () => {
     await signOutUser();
+    setOrders([])
   }
   return (
     <Fragment>
@@ -30,6 +35,8 @@ const NavBar = () => {
           <CrwnLogo className="logo" />
         </Link>
         <div className="nav-links-container">
+          {currentUser && favorites.length!==0 && <Link className="nav-link" to={"favorites"}>View Favorites</Link>}
+          {currentUser && orders.length!==0 && <Link className="nav-link" to={"orders"}>View Orders</Link>}
           <Link className="nav-link" to={"shop"}>
             Shop
           </Link>

@@ -24,6 +24,10 @@
     }
   
     .total {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      column-gap: 20px;
+      row-gap: 50px;
       margin-top: 30px;
       margin-left: auto;
       font-size: 36px;

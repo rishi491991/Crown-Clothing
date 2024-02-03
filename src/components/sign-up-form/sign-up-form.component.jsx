@@ -1,9 +1,12 @@
-import { useState, useContext } from "react";
+import { useState, useContext, Fragment } from "react";
 import { createAuthUserWithEmailAndPassword } from "../../utils/firebase/firebase.utils";
 import { createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import Button from "../button/button.component";
 import './sign-up-form.styles.scss'
+
+import { UserContext } from "../../contexts/user.context";
+import { useNavigate } from "react-router-dom";
 
 
 const defaultFormFields = {
@@ -13,10 +16,14 @@ const defaultFormFields = {
   confirmPassword: "",
 };
 
+
+
 const SignUpForm = () => {
   const [formFields, setFormFields] = useState(defaultFormFields);
 
   const { displayName, email, password, confirmPassword } = formFields;
+
+  const {currentUser} = useContext(UserContext)
 
   console.log(formFields);
 
@@ -28,8 +35,6 @@ const SignUpForm = () => {
       [name]: value,
     });
   };
-
-
   const handleSubmit = async (event) => {
     if (password === confirmPassword) {
       event.preventDefault();
@@ -43,6 +48,7 @@ const SignUpForm = () => {
           displayName,
         });
         resetFormFields();
+        alert("Sign Up Successful")
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           alert("email already in use");
@@ -58,6 +64,7 @@ const SignUpForm = () => {
   };
 
   return (
+    
     <div className="sign-up-container">
       <h2>Don't have a account yet?</h2>
       <span>Sign up with your email and password.</span>

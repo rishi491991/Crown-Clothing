@@ -8,6 +8,8 @@ import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./contexts/user.context";
 import { CategoriesProvider } from "./contexts/categories.context";
 import { CartProvider } from "./contexts/cart.context";
+import { OrdersProvider } from "./contexts/orders.context";
+import { FavoritesProvider } from "./contexts/favorites.context";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -16,7 +18,11 @@ root.render(
       <UserProvider>
         <CategoriesProvider>
           <CartProvider>
-            <App />
+            <OrdersProvider>
+              <FavoritesProvider>
+                <App />
+              </FavoritesProvider>
+            </OrdersProvider>
           </CartProvider>
         </CategoriesProvider>
       </UserProvider>
