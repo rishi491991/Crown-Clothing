@@ -1,10 +1,11 @@
 import { Fragment, useContext, useEffect, useState } from "react";
 import { CartContext } from "../../contexts/cart.context";
-import "./checkout-page.styles.scss";
+import "./checkout-page.styles.jsx";
 import { useNavigate } from "react-router-dom";
 import Button from "../button/button.component";
 import OrderConfirm from "../order-confirm/order-confirm.component";
 import { OrdersContext } from "../../contexts/orders.context";
+import {CheckoutContainer, CheckoutHeader, CheckoutItemContainer} from './checkout-page.styles.jsx'
 
 const CheckoutPage = () => {
 
@@ -43,8 +44,8 @@ const CheckoutPage = () => {
 
   return (
     <Fragment>
-    <div className="checkout-container">
-      <div className="checkout-header">
+    <CheckoutContainer>
+      <CheckoutHeader>
         <div className="header-block">
           <span>Product</span>
         </div>
@@ -60,7 +61,7 @@ const CheckoutPage = () => {
         <div className="header-block">
           <span>Remove</span>
         </div>
-      </div>
+      </CheckoutHeader>
       {cartItems.map((cartItem) => {
         const { imageUrl, name, quantity, price } = cartItem;
         const removeItemHandler = () => {
@@ -75,7 +76,7 @@ const CheckoutPage = () => {
           clearItemFromCart(cartItem);
         };
         return (
-          <div className="checkout-item-container">
+          <CheckoutItemContainer>
             <div className="image-container">
               <img src={imageUrl} alt={`${name}`} />
             </div>
@@ -89,18 +90,18 @@ const CheckoutPage = () => {
                 &#10095;
               </div>
             </span>
-            <span className="price"> {price}</span>
+            <span className="price"> ${price}</span>
             <div className="remove-button" onClick={clearItemHandler}>
               &#10005;
             </div>
-          </div>
+          </CheckoutItemContainer>
         );
       })}{" "}
         <div className="total">
           <Button buttonType={"inverted"} onClick={handleBuyNow}>Buy Now</Button>
           TOTAL: ${totalAmount}
           </div>
-    </div>
+    </CheckoutContainer>
     {orders && orderConfirmed && <OrderConfirm onClose={handleCloseConfirmation}/>}
     </Fragment>
   );

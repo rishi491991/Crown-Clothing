@@ -10,7 +10,7 @@ const Favorite = () => {
       <h2>Your Favorites</h2>
     
     {favorites.map((favorite)=>{
-        const { name, quantity, id, imageUrl, price } = favorite;
+        const { name, id, imageUrl, price } = favorite;
         return (
     <div className="favorite-item-container" key={id}>
       <img src={imageUrl} alt={name} />
